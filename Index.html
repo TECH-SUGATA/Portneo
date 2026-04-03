@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sugata Nayak | AI Developer</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#00f2ff",
+        secondary: "#a855f7"
+      },
+      fontFamily: {
+        headline: ["Space Grotesk"],
+        body: ["Inter"]
+      }
+    }
+  }
+}
+</script>
+
+<style>
+body { background:#0b1326; overflow-x:hidden; color:white; }
+
+/* ORBS */
+.orb { position:absolute; border-radius:999px; filter:blur(120px); opacity:0.3; animation:float 10s infinite alternate; }
+.orb1 { width:300px;height:300px;background:#00f2ff;top:10%;left:10%; }
+.orb2 { width:300px;height:300px;background:#a855f7;bottom:10%;right:10%; }
+@keyframes float { from{transform:translateY(0)} to{transform:translateY(-40px)} }
+
+/* GLASS */
+.glass { background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); }
+
+/* CARD */
+.card { transition:0.2s; transform-style:preserve-3d; }
+
+/* CURSOR */
+#cursor-glow {
+  position:fixed;width:200px;height:200px;
+  background:radial-gradient(circle, rgba(0,242,255,0.25), transparent 60%);
+  pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);
+  z-index:999;
+}
+
+/* BUTTON */
+.btn:hover { box-shadow:0 0 25px rgba(0,242,255,0.6); transform:scale(1.05); }
+</style>
+</head>
+
+<body class="font-body">
+
+<!-- CURSOR -->
+<div id="cursor-glow"></div>
+
+<!-- ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<!-- NAV -->
+<header class="fixed top-0 w-full backdrop-blur-xl bg-black/40 border-b border-white/10 z-50">
+  <div class="flex justify-between px-8 py-4">
+    <h1 class="text-primary font-headline font-bold">SUGATA</h1>
+    <nav class="hidden md:flex gap-6 uppercase text-sm">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center px-8">
+<div class="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto w-full">
+
+<div data-aos="fade-right">
+<h1 class="text-6xl lg:text-8xl font-headline font-black">
+Building the Future with <br>
+<span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+AI & Web
+</span>
+</h1>
+
+<p class="mt-6 text-gray-300">
+AI & Full Stack Developer building intelligent systems.
+</p>
+
+<div class="flex gap-4 mt-8">
+<button class="btn bg-primary text-black px-6 py-3 rounded-lg font-bold">Projects</button>
+<button class="glass px-6 py-3 rounded-lg">Contact</button>
+</div>
+</div>
+
+<div data-aos="zoom-in" class="flex justify-center">
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+class="w-80 rounded-xl grayscale hover:grayscale-0 transition">
+</div>
+
+</div>
+</section>
+
+<!-- STATS -->
+<section class="py-24 text-center">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+<div class="glass p-6 rounded-xl"><h3 class="text-3xl text-primary">10+</h3><p>Projects</p></div>
+<div class="glass p-6 rounded-xl"><h3 class="text-3xl text-primary">5+</h3><p>Tech</p></div>
+<div class="glass p-6 rounded-xl"><h3 class="text-3xl text-primary">2+</h3><p>Internships</p></div>
+<div class="glass p-6 rounded-xl"><h3 class="text-3xl text-primary">100%</h3><p>Passion</p></div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-24 px-8">
+<h2 class="text-4xl text-center mb-16">Projects</h2>
+<div id="github-projects" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-24 text-center">
+<h2 class="text-4xl mb-4">Contact</h2>
+<button class="btn bg-primary text-black px-6 py-3 rounded-lg">Email Me</button>
+</section>
+
+<!-- CHAT -->
+<div id="chat-btn" class="fixed bottom-6 right-6 bg-primary text-black p-4 rounded-full cursor-pointer">💬</div>
+
+<div id="chat-box" class="hidden fixed bottom-20 right-6 w-80 glass rounded-xl p-4">
+<h3>AI Assistant</h3>
+<div id="chat-messages" class="h-40 overflow-y-auto text-sm mb-2"></div>
+<input id="chat-input" class="w-full p-2 bg-black/30" placeholder="Ask me...">
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>AOS.init();</script>
+
+<script>
+// Cursor glow
+document.addEventListener("mousemove", e=>{
+const g=document.getElementById("cursor-glow");
+g.style.left=e.clientX+"px";
+g.style.top=e.clientY+"px";
+});
+
+// 3D tilt
+document.addEventListener("mouseover",()=>{
+document.querySelectorAll(".card").forEach(card=>{
+card.addEventListener("mousemove", e=>{
+const r=card.getBoundingClientRect();
+const x=e.clientX-r.left;
+const y=e.clientY-r.top;
+card.style.transform=`rotateX(${(y/r.height-0.5)*10}deg) rotateY(${(x/r.width-0.5)*-10}deg)`;
+});
+card.addEventListener("mouseleave",()=>card.style.transform="none");
+});
+});
+
+// GitHub Projects (YOUR USERNAME ADDED ✅)
+fetch("https://api.github.com/users/TECH-SUGATA/repos")
+.then(r=>r.json())
+.then(d=>{
+const c=document.getElementById("github-projects");
+d.slice(0,6).forEach(repo=>{
+c.innerHTML+=`
+<div class="glass p-6 rounded-xl card">
+<h3 class="text-lg font-bold mb-2">${repo.name}</h3>
+<p class="text-gray-400 text-sm mb-3">${repo.description || "No description available"}</p>
+<a href="${repo.html_url}" target="_blank" class="text-primary font-bold">View Code →</a>
+</div>`;
+});
+});
+
+// Chatbot
+const btn=document.getElementById("chat-btn");
+const box=document.getElementById("chat-box");
+btn.onclick=()=>box.classList.toggle("hidden");
+
+document.getElementById("chat-input").addEventListener("keypress",e=>{
+if(e.key==="Enter"){
+const m=document.getElementById("chat-messages");
+m.innerHTML+=`<div>🧑 ${e.target.value}</div>`;
+m.innerHTML+=`<div>🤖 I am Sugata's AI assistant 🚀</div>`;
+e.target.value="";
+}
+});
+</script>
+
+</body>
+</html>
