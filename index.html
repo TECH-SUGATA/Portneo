@@ -1,201 +1,1077 @@
 <!DOCTYPE html>
-<html class="dark scroll-smooth" lang="en">
+<html class="dark" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Sugata Nayak | AI & Full Stack Developer</title>
-
-<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-
-<script>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sugata Nayak | AI Engineer & Full Stack Developer</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
 tailwind.config = {
-  darkMode: "class",
-  theme: {
-    extend: {
-      colors: {
-        primary: "#6366f1",
-        secondary: "#a855f7",
-        tertiary: "#ec4899",
-        surface: "#0b1326"
+  darkMode:"class",
+  theme:{
+    extend:{
+      colors:{
+        primary:"#BC13FE",
+        secondary:"#ac89ff",
+        tertiary:"#ff59e3",
+        background:"#050508",
+        surface:"rgba(14,14,19,0.7)",
+        "surface-container":"rgba(25,25,31,0.8)",
+        "surface-container-high":"rgba(31,31,38,0.85)",
+        "surface-bright":"#2c2b33",
+        "on-surface":"#f9f5fd",
+        "on-surface-variant":"#acaab1",
+        "outline-variant":"#48474d",
+      },
+      fontFamily:{
+        headline:["Syne"],
+        body:["DM Sans"],
+        label:["Syne"]
       }
     }
   }
 }
 </script>
-
 <style>
-body {
-  background:#0b1326;
-  color:white;
-  overflow-x:hidden;
-}
+  *{box-sizing:border-box;}
+  :root{
+    --primary:#BC13FE;
+    --secondary:#ac89ff;
+    --tertiary:#ff59e3;
+    --cyan:#00d2ff;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:#050508;
+    color:#f9f5fd;
+    font-family:'DM Sans',sans-serif;
+    overflow-x:hidden;
+  }
 
-/* Animated Gradient */
-.animated-gradient {
-  background: linear-gradient(270deg,#00f2ff,#a855f7,#ec4899);
-  background-size:600%;
-  animation: gradientMove 8s infinite;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-@keyframes gradientMove {
-  0%{background-position:0%}
-  50%{background-position:100%}
-  100%{background-position:0%}
-}
+  /* ─── NEBULA BG ─── */
+  .nebula-bg{
+    position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;
+    background:
+      radial-gradient(ellipse at 8% 15%, rgba(188,19,254,.22) 0%, transparent 45%),
+      radial-gradient(ellipse at 92% 8%,  rgba(0,210,255,.18) 0%, transparent 42%),
+      radial-gradient(ellipse at 50% 55%, rgba(255,89,227,.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 78% 82%, rgba(172,137,255,.18) 0%, transparent 45%),
+      radial-gradient(ellipse at 18% 82%, rgba(0,112,255,.18) 0%, transparent 40%),
+      #050508;
+    animation:nebulaFlow 14s ease-in-out infinite alternate;
+  }
+  @keyframes nebulaFlow{
+    0%{transform:scale(1) translate(0,0);}
+    33%{transform:scale(1.12) translate(-2.5%,2.5%);}
+    66%{transform:scale(1.06) translate(1.5%,-1.5%);}
+    100%{transform:scale(1) translate(0,0);}
+  }
 
-/* Mouse Glow */
-#mouse-glow {
-  position:fixed;
-  width:250px;height:250px;
-  background:radial-gradient(circle,rgba(0,242,255,0.2),transparent);
-  border-radius:50%;
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  z-index:0;
-}
+  /* ─── CODE OVERLAY ─── */
+  .code-overlay{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    z-index:-1;pointer-events:none;opacity:.18;
+    font-family:monospace;font-size:11px;overflow:hidden;user-select:none;
+  }
+  .code-snippet{
+    position:absolute;white-space:pre;
+    animation:floatUp var(--dur) linear infinite;
+    top:105%;left:var(--l);
+    text-shadow:0 0 8px var(--gc);color:var(--tc);
+  }
+  @keyframes floatUp{from{transform:translateY(0);}to{transform:translateY(-130vh);}}
 
-/* Glass */
-.glass-card-deep {
-  background: rgba(23,31,51,0.3);
-  backdrop-filter: blur(20px);
-  border:1px solid rgba(255,255,255,0.1);
-  transition:0.4s;
-}
-.glass-card-deep:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow:0 0 30px rgba(0,242,255,0.2);
-}
+  /* ─── GLASS CARD ─── */
+  .gc{
+    background:rgba(31,31,38,.42);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(188,19,254,.15);
+    box-shadow:0 8px 32px rgba(0,0,0,.38);
+    transition:border .3s,box-shadow .3s,transform .3s;
+  }
+  .gc:hover{
+    border-color:rgba(188,19,254,.42);
+    box-shadow:0 0 28px rgba(188,19,254,.22);
+  }
 
-/* Button */
-.glow-button:hover {
-  box-shadow:0 0 20px rgba(0,242,255,0.6);
-}
+  /* ─── GRADIENT TEXT ─── */
+  .gt{
+    background:linear-gradient(135deg,#BC13FE,#ac89ff,#00d2ff,#ff59e3);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
 
-/* Fade Animation */
-.fade-up {
-  opacity:0;
-  transform:translateY(40px);
-  transition:0.8s;
-}
-.fade-up.active {
-  opacity:1;
-  transform:translateY(0);
-}
+  /* ─── TOP NEURAL LINE ─── */
+  .neural-line{
+    position:fixed;top:0;left:0;width:100%;height:2px;z-index:200;
+    background:linear-gradient(90deg,transparent,#BC13FE,#00d2ff,#ff59e3,transparent);
+    opacity:.5;pointer-events:none;
+    animation:scanLine 4s ease-in-out infinite;
+  }
+  @keyframes scanLine{0%,100%{opacity:.3;}50%{opacity:.7;}}
+
+  /* ─── NAV ─── */
+  nav{
+    position:fixed;top:0;width:100%;z-index:50;
+    background:rgba(5,5,8,.55);
+    backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+    border-bottom:1px solid rgba(188,19,254,.12);
+    height:72px;
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    max-width:1280px;margin:0 auto;padding:0 24px;height:100%;
+  }
+  .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#BC13FE;letter-spacing:-.02em;}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{font-family:'Syne',sans-serif;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:color .25s;}
+  .nav-links a:hover{color:#BC13FE;}
+  .btn-resume{
+    padding:8px 22px;background:#BC13FE;color:#fff;font-family:'Syne',sans-serif;
+    font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+    border-radius:3px;transition:all .25s;
+    box-shadow:0 0 18px rgba(188,19,254,.35);
+  }
+  .btn-resume:hover{transform:scale(1.06);box-shadow:0 0 28px rgba(188,19,254,.55);}
+
+  /* ─── SECTION BASE ─── */
+  section{position:relative;z-index:1;scroll-margin-top:72px;}
+
+  /* ─── HERO ─── */
+  .hero-section{min-height:100vh;display:flex;align-items:center;padding:96px 24px 48px;}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1280px;margin:0 auto;width:100%;}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;} .nav-links{display:none;}}
+  .slide-container{height:44px;overflow:hidden;}
+  .slide-container p{margin:0;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;animation:slideText 8s cubic-bezier(.85,0,.15,1) infinite;}
+  .slide-container p:nth-child(2){animation-delay:2s;}
+  .slide-container p:nth-child(3){animation-delay:4s;}
+  .slide-container p:nth-child(4){animation-delay:6s;}
+  @keyframes slideText{
+    0%,20%{transform:translateY(0);opacity:1;}
+    25%,95%{transform:translateY(-100%);opacity:0;}
+    100%{transform:translateY(-300%);opacity:0;}
+  }
+
+  /* ─── AVAILABILITY BADGE ─── */
+  .avail-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:100px;
+    background:rgba(31,31,38,.7);border:1px solid rgba(188,19,254,.3);
+    backdrop-filter:blur(12px);
+  }
+  .avail-dot{width:8px;height:8px;border-radius:50%;background:#BC13FE;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(188,19,254,.5);}50%{box-shadow:0 0 0 6px rgba(188,19,254,0);}}
+
+  /* ─── HERO IMAGE ─── */
+  .hero-img-wrap{position:relative;}
+  .hero-img-glow{
+    position:absolute;inset:-2px;
+    background:linear-gradient(135deg,#BC13FE,#ac89ff,#ff59e3);
+    border-radius:12px;filter:blur(1px);opacity:.6;
+    transition:opacity .5s;
+  }
+  .hero-img-wrap:hover .hero-img-glow{opacity:.9;}
+  .hero-img-inner{
+    position:relative;border-radius:10px;overflow:hidden;
+    aspect-ratio:1;max-width:440px;margin:0 auto;
+  }
+  .hero-img-inner img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);transition:filter .6s;}
+  .hero-img-wrap:hover img{filter:grayscale(0%);}
+  .focus-badge{
+    position:absolute;bottom:16px;left:-20px;
+    background:rgba(14,14,19,.85);backdrop-filter:blur(16px);
+    border:1px solid rgba(188,19,254,.3);border-radius:10px;
+    padding:12px 16px;display:flex;align-items:center;gap:12px;
+  }
+
+  /* ─── ABOUT ─── */
+  .about-section{padding:96px 24px;}
+
+  /* ─── SKILLS ─── */
+  .skills-section{padding:80px 24px;}
+  .skill-card{
+    background:rgba(31,31,38,.42);backdrop-filter:blur(20px);
+    border:1px solid rgba(188,19,254,.15);border-radius:8px;padding:28px;
+    transition:all .35s;position:relative;overflow:hidden;
+  }
+  .skill-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent,#BC13FE),transparent);
+    transform:scaleX(0);transition:transform .4s;
+  }
+  .skill-card:hover::before{transform:scaleX(1);}
+  .skill-card:hover{transform:translateY(-6px);border-color:rgba(188,19,254,.4);box-shadow:0 20px 40px rgba(0,0,0,.4);}
+
+  /* ─── PROJECTS ─── */
+  .projects-section{padding:80px 24px;}
+  .proj-card{
+    background:rgba(25,25,31,.8);backdrop-filter:blur(20px);
+    border:1px solid rgba(188,19,254,.15);border-radius:10px;overflow:hidden;
+    display:flex;flex-direction:column;transition:all .4s;
+  }
+  .proj-card:hover{transform:translateY(-8px);border-color:rgba(188,19,254,.45);box-shadow:0 24px 48px rgba(0,0,0,.5),0 0 30px rgba(188,19,254,.12);}
+  .proj-img{aspect-ratio:16/9;overflow:hidden;position:relative;}
+  .proj-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s;}
+  .proj-card:hover .proj-img img{transform:scale(1.08);}
+  .proj-tag{
+    position:absolute;top:12px;right:12px;
+    padding:4px 10px;border-radius:3px;font-family:'Syne',sans-serif;
+    font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    backdrop-filter:blur(12px);
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-section{padding:80px 24px;}
+  .exp-card{
+    background:rgba(25,25,31,.7);backdrop-filter:blur(20px);
+    border:1px solid rgba(188,19,254,.15);border-radius:12px;overflow:hidden;
+    display:grid;grid-template-columns:280px 1fr;transition:all .4s;
+  }
+  @media(max-width:700px){.exp-card{grid-template-columns:1fr;}}
+  .exp-card:hover{transform:translateY(-5px);border-color:rgba(188,19,254,.4);box-shadow:0 20px 40px rgba(0,0,0,.45);}
+  .exp-img{width:100%;height:100%;min-height:200px;object-fit:cover;filter:grayscale(20%);transition:filter .5s;}
+  .exp-card:hover .exp-img{filter:grayscale(0%);}
+  .exp-status-dot{
+    display:inline-block;width:8px;height:8px;border-radius:50%;
+    margin-right:6px;
+  }
+
+  /* ─── CERTS ─── */
+  .cert-section{padding:80px 24px;}
+  .cert-card{
+    background:rgba(25,25,31,.7);backdrop-filter:blur(20px);
+    border:1px solid rgba(188,19,254,.15);border-radius:10px;
+    padding:20px;display:flex;align-items:center;gap:16px;
+    transition:all .35s;
+  }
+  .cert-card:hover{transform:translateX(6px);border-color:rgba(188,19,254,.4);box-shadow:0 0 20px rgba(188,19,254,.15);}
+  .hack-card{
+    background:rgba(25,25,31,.7);backdrop-filter:blur(20px);
+    border:1px solid rgba(172,137,255,.2);border-radius:10px;
+    padding:20px;text-align:center;transition:all .35s;
+  }
+  .hack-card:hover{transform:translateY(-4px);border-color:rgba(172,137,255,.5);}
+
+  /* ─── BLOG ─── */
+  .blog-section{padding:80px 24px;}
+  .blog-card{
+    background:rgba(25,25,31,.7);backdrop-filter:blur(20px);
+    border:1px solid rgba(188,19,254,.15);border-radius:10px;overflow:hidden;
+    display:flex;flex-direction:column;transition:all .4s;
+  }
+  .blog-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(0,0,0,.5);}
+  .blog-img{height:220px;overflow:hidden;position:relative;}
+  .blog-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(30%);transition:all .6s;}
+  .blog-card:hover .blog-img img{filter:grayscale(0%);transform:scale(1.06);}
+
+  /* ─── CONTACT ─── */
+  .contact-section{padding:80px 24px;}
+  .contact-info-item{
+    display:flex;align-items:center;gap:16px;padding:16px 20px;
+    background:rgba(25,25,31,.7);backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,.08);border-radius:10px;
+    text-decoration:none;transition:all .3s;
+  }
+  .contact-info-item:hover{border-color:rgba(188,19,254,.4);transform:translateX(4px);}
+  .contact-icon{
+    width:46px;height:46px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;font-size:1.4rem;
+  }
+  .social-link{
+    width:52px;height:52px;border-radius:12px;
+    background:rgba(25,25,31,.7);border:1px solid rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;
+    transition:all .3s;overflow:hidden;
+  }
+  .social-link:hover{transform:translateY(-4px) scale(1.08);}
+  .social-link img{width:26px;height:26px;object-fit:contain;}
+
+  /* ─── WHATSAPP FAB ─── */
+  .wa-fab{
+    position:fixed;bottom:28px;right:28px;z-index:999;
+    width:60px;height:60px;border-radius:50%;
+    background:linear-gradient(135deg,#25D366,#128C7E);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 24px rgba(37,211,102,.45);
+    transition:all .3s;cursor:pointer;text-decoration:none;
+  }
+  .wa-fab:hover{transform:scale(1.12) translateY(-3px);box-shadow:0 10px 32px rgba(37,211,102,.6);}
+  .wa-fab svg{width:32px;height:32px;}
+
+  /* ─── FORM ─── */
+  .contact-form{
+    background:rgba(25,25,31,.8);backdrop-filter:blur(24px);
+    border:1px solid rgba(188,19,254,.2);border-radius:14px;padding:40px;
+  }
+  .form-input{
+    width:100%;background:rgba(5,5,8,.6);
+    border:1px solid rgba(255,255,255,.1);border-radius:8px;
+    padding:14px 16px;color:#f9f5fd;font-family:'DM Sans',sans-serif;
+    transition:border .25s,box-shadow .25s;outline:none;
+  }
+  .form-input:focus{border-color:rgba(188,19,254,.6);box-shadow:0 0 0 3px rgba(188,19,254,.12);}
+  .form-label{font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(172,170,177,.8);display:block;margin-bottom:6px;}
+
+  /* ─── FOOTER ─── */
+  footer{background:rgba(0,0,0,.65);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,.08);padding:40px 24px;}
+
+  /* ─── TIMELINE ─── */
+  .timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(188,19,254,.5),rgba(188,19,254,.1));}
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+  .reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal-left.visible{opacity:1;transform:none;}
+
+  /* ─── CURSOR GLOW ─── */
+  .cursor-glow{
+    position:fixed;pointer-events:none;z-index:9999;
+    width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(circle,rgba(188,19,254,.06) 0%,transparent 70%);
+    transform:translate(-50%,-50%);transition:transform .1s;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-tag{font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:#BC13FE;}
+  .section-title{font-family:'Syne',sans-serif;font-weight:800;color:#f9f5fd;}
+
+  /* ─── GRID ─── */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  @media(max-width:1024px){.grid-3{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){.grid-3,.grid-2{grid-template-columns:1fr;}}
+
+  /* ─── MATERIAL ICONS ─── */
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+
+  /* ─── HOVER LIFT ─── */
+  .hover-lift{transition:transform .3s;}
+  .hover-lift:hover{transform:translateY(-5px);}
+
+  /* ─── SHIMMER LINE ─── */
+  .shimmer{background:linear-gradient(90deg,rgba(188,19,254,0) 0%,rgba(188,19,254,.5) 50%,rgba(188,19,254,0) 100%);height:1px;width:100%;}
+
+  /* ─── CONTACT PAGE 2 STYLE ─── */
+  .contact-method-card{
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+    padding:24px 16px;background:rgba(25,25,31,.8);
+    border:1px solid rgba(255,255,255,.08);border-radius:14px;
+    text-decoration:none;text-align:center;transition:all .35s;
+  }
+  .contact-method-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--hover-color,rgba(188,19,254,.5));
+    box-shadow:0 16px 40px rgba(0,0,0,.4),0 0 24px var(--hover-glow,rgba(188,19,254,.15));
+  }
+  .contact-method-icon{
+    width:64px;height:64px;border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;
+  }
 </style>
 </head>
-
 <body>
 
-<div id="mouse-glow"></div>
+<!-- Cursor Glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
 
-<!-- NAV -->
-<nav class="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
-<div class="flex justify-between px-8 py-4">
-<h1 class="animated-gradient font-bold text-xl">Sugata Nayak</h1>
+<!-- Neural Line -->
+<div class="neural-line"></div>
+
+<!-- Nebula BG -->
+<div class="nebula-bg"></div>
+
+<!-- Code Overlay -->
+<div class="code-overlay">
+  <div class="code-snippet" style="--l:5%;--dur:11s;--gc:#BC13FE;--tc:#e280ff;">function animate() {&#10;  requestAnimationFrame(animate);&#10;  neuralNet.propagate();&#10;}</div>
+  <div class="code-snippet" style="--l:18%;--dur:15s;--gc:#00d2ff;--tc:#80e9ff;">const model = await tf.loadLayersModel('url');&#10;const prediction = model.predict(input);</div>
+  <div class="code-snippet" style="--l:33%;--dur:19s;--gc:#ff59e3;--tc:#ffb8f3;">01001000 01100101 01101100 01101100 01101111</div>
+  <div class="code-snippet" style="--l:52%;--dur:13s;--gc:#BC13FE;--tc:#e280ff;">optimizer = Adam(lr=0.001)&#10;model.fit(X_train, y_train)</div>
+  <div class="code-snippet" style="--l:70%;--dur:22s;--gc:#ac89ff;--tc:#d6c4ff;">while(isLearning) {&#10;  improve(skill);&#10;  deploy(project);&#10;}</div>
+  <div class="code-snippet" style="--l:85%;--dur:17s;--gc:#00d2ff;--tc:#80e9ff;">SELECT * FROM neurons&#10;WHERE synapse_strength > 0.95;</div>
+  <div class="code-snippet" style="--l:42%;--dur:26s;--gc:#BC13FE;--tc:#e280ff;">kubectl apply -f deployment.yaml</div>
 </div>
+
+<!-- ───────────── NAV ───────────── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Sugata Nayak</div>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="btn-resume" href="https://i.ibb.co/5gKrdd9X/Sugata-Nayak-12024002035227-Resume.png" target="_blank">Resume</a>
+  </div>
 </nav>
 
-<main class="pt-20">
+<!-- ───────────── HERO ───────────── -->
+<section class="hero-section">
+  <div class="hero-grid">
+    <!-- Left -->
+    <div style="display:flex;flex-direction:column;gap:28px;">
+      <div class="avail-badge reveal">
+        <span class="avail-dot"></span>
+        <span style="font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(172,170,177,.9);">Available for Opportunities</span>
+      </div>
 
-<!-- HERO -->
-<section class="min-h-screen flex items-center px-12 fade-up">
-<div>
-<h1 class="text-6xl font-bold">
-Sugata <br><span class="animated-gradient">Nayak</span>
-</h1>
+      <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.1;" class="reveal">
+        Hi, I'm <span class="gt">Sugata Nayak</span>
+      </h1>
 
-<p class="text-gray-400 mt-4">
-AI & Full Stack Developer | B.Tech CSE (AI)
-</p>
+      <div class="slide-container reveal">
+        <p style="color:#f9f5fd;">Full Stack Developer</p>
+        <p style="color:#ac89ff;">AI & ML Enthusiast</p>
+        <p style="color:#ff59e3;">Python Programmer</p>
+        <p style="color:#00d2ff;">DSA Learner</p>
+      </div>
 
-<button class="mt-6 px-6 py-3 bg-purple-600 rounded glow-button">
-View Projects
-</button>
-</div>
+      <p style="color:rgba(172,170,177,.85);font-size:1.05rem;line-height:1.75;max-width:480px;" class="reveal">
+        Full Stack Developer & Python Programmer — building the future with neural networks and clean code, focused on creating impactful intelligent systems.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:14px;" class="reveal">
+        <a href="#projects" style="padding:14px 28px;background:#BC13FE;color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.06em;border-radius:4px;display:flex;align-items:center;gap:8px;box-shadow:0 0 24px rgba(188,19,254,.4);transition:all .25s;text-decoration:none;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          View Projects <span class="material-symbols-outlined" style="font-size:1rem;">arrow_outward</span>
+        </a>
+        <a href="#contact" style="padding:14px 28px;border:1px solid rgba(255,255,255,.18);color:#f9f5fd;font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.06em;border-radius:4px;backdrop-filter:blur(12px);transition:all .25s;text-decoration:none;" onmouseover="this.style.borderColor='rgba(188,19,254,.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,.18)'">
+          Contact Me
+        </a>
+      </div>
+
+      <div style="display:flex;gap:16px;padding-top:4px;" class="reveal">
+        <a href="https://github.com/TECH-SUGATA" class="social-link" style="--hover:rgba(255,255,255,.2);">
+          <img src="https://img.icons8.com/ios11/512/FFFFFF/github.png" alt="GitHub"/>
+        </a>
+        <a href="https://www.linkedin.com/in/sugata-nayak-343099322" class="social-link">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"/>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Image -->
+    <div class="hero-img-wrap reveal">
+      <div class="hero-img-glow"></div>
+      <div class="hero-img-inner">
+        <img src="https://i.ibb.co/wNYrcrqX/Screenshot-2026-04-04-052453.png" alt="Sugata Nayak"/>
+      </div>
+      <div class="focus-badge">
+        <div style="width:40px;height:40px;border-radius:10px;background:rgba(188,19,254,.2);display:flex;align-items:center;justify-content:center;">
+          <span class="material-symbols-outlined" style="color:#BC13FE;">psychology</span>
+        </div>
+        <div>
+          <p style="font-family:'Syne',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(172,170,177,.7);">Focus Area</p>
+          <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:#f9f5fd;">Artificial Intelligence</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ABOUT -->
-<section class="py-20 fade-up text-center">
-<h2 class="text-4xl mb-6">About Me</h2>
-<p class="text-gray-400 max-w-xl mx-auto">
-A passionate AI & Full Stack Developer building intelligent web applications.
-</p>
+<!-- ───────────── ABOUT ───────────── -->
+<section class="about-section" style="background:rgba(14,14,19,.5);backdrop-filter:blur(8px);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="display:flex;flex-direction:column;gap:16px;" class="reveal">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:64px;" class="about-grid">
+        <div>
+          <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;line-height:1.2;position:sticky;top:100px;">
+            The <br/><span class="gt">Curator's</span><br/>Manifesto
+          </h2>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <p style="font-size:1.15rem;line-height:1.85;color:rgba(172,170,177,.9);">
+            I am a <span style="color:#f9f5fd;font-weight:600;">🚀 B.Tech CSE (AI) Student at IEM, Kolkata & Full Stack Developer</span> — passionate about building AI-driven and scalable digital solutions that solve real-world problems and bridge the gap between human intuition and algorithmic precision.
+          </p>
+          <p style="font-size:1rem;line-height:1.8;color:rgba(172,170,177,.8);">
+            🤖 AI & ML Enthusiast | 💻 Frontend Developer | 🐍 Python Programmer | 🧠 DSA | 🌐 Web Development | 🚀 Hackathon Participant | Member of IETE Students Forum (ISF) & Google Developer Groups (IEM)
+          </p>
+          <p style="font-size:1rem;line-height:1.8;color:rgba(172,170,177,.8);">
+            Based in <span style="color:#BC13FE;font-weight:600;">Kolkata, India</span>, I explore architectures of tomorrow. My passion lies in ML and Full Stack development, creating systems that are contextually intelligent.
+          </p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px 0;border-top:1px solid rgba(255,255,255,.08);margin-top:8px;">
+            <div>
+              <h4 style="font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#BC13FE;margin-bottom:8px;">Philosophy</h4>
+              <p style="color:rgba(172,170,177,.8);font-size:.92rem;">Efficiency over complexity. AI as a tool for human empowerment.</p>
+            </div>
+            <div>
+              <h4 style="font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#ac89ff;margin-bottom:8px;">Mission</h4>
+              <p style="color:rgba(172,170,177,.8);font-size:.92rem;">Democratizing AI through accessible and scalable applications.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- PROJECTS -->
-<section class="py-20 fade-up">
-<h2 class="text-4xl text-center mb-10">Projects</h2>
+<style>.about-grid{display:grid;grid-template-columns:1fr 2fr;gap:64px;}@media(max-width:768px){.about-grid{grid-template-columns:1fr;}}</style>
 
-<div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+<!-- ───────────── SKILLS ───────────── -->
+<section class="skills-section" id="skills">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:48px;" class="reveal">
+      <p class="section-tag">Tech Stack & Armory</p>
+      <h2 class="section-title" style="font-size:2rem;margin-top:8px;">Core <span class="gt">Competencies</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;" class="skills-grid">
+      <div class="skill-card reveal" style="--accent:#BC13FE;">
+        <span class="material-symbols-outlined" style="color:#BC13FE;font-size:2rem;margin-bottom:16px;">terminal</span>
+        <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#f9f5fd;margin-bottom:14px;">Programming</h4>
+        <ul style="display:flex;flex-direction:column;gap:8px;color:rgba(172,170,177,.85);font-size:.88rem;">
+          <li>• Python</li><li>• Java</li><li>• C / SQL</li><li>• JavaScript</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal" style="--accent:#ac89ff;animation-delay:.1s;">
+        <span class="material-symbols-outlined" style="color:#ac89ff;font-size:2rem;margin-bottom:16px;">language</span>
+        <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#f9f5fd;margin-bottom:14px;">Web Tech</h4>
+        <ul style="display:flex;flex-direction:column;gap:8px;color:rgba(172,170,177,.85);font-size:.88rem;">
+          <li>• HTML / CSS</li><li>• React.js</li><li>• Node.js</li><li>• Tailwind</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal" style="--accent:#ff59e3;animation-delay:.2s;">
+        <span class="material-symbols-outlined" style="color:#ff59e3;font-size:2rem;margin-bottom:16px;">construction</span>
+        <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#f9f5fd;margin-bottom:14px;">Tools</h4>
+        <ul style="display:flex;flex-direction:column;gap:8px;color:rgba(172,170,177,.85);font-size:.88rem;">
+          <li>• Git / GitHub</li><li>• VS Code</li><li>• Jupyter</li><li>• Docker</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal" style="--accent:#00d2ff;animation-delay:.3s;">
+        <span class="material-symbols-outlined" style="color:#00d2ff;font-size:2rem;margin-bottom:16px;">cloud</span>
+        <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#f9f5fd;margin-bottom:14px;">Cloud</h4>
+        <ul style="display:flex;flex-direction:column;gap:8px;color:rgba(172,170,177,.85);font-size:.88rem;">
+          <li>• Google Cloud</li><li>• AWS Basics</li><li>• Firebase</li><li>• Vercel</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal" style="--accent:#ac89ff;animation-delay:.4s;">
+        <span class="material-symbols-outlined" style="color:#ac89ff;font-size:2rem;margin-bottom:16px;">database</span>
+        <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#f9f5fd;margin-bottom:14px;">Databases</h4>
+        <ul style="display:flex;flex-direction:column;gap:8px;color:rgba(172,170,177,.85);font-size:.88rem;">
+          <li>• MySQL</li><li>• MongoDB</li><li>• PostgreSQL</li><li>• Redis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<style>.skills-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}@media(max-width:1100px){.skills-grid{grid-template-columns:repeat(3,1fr);}}@media(max-width:640px){.skills-grid{grid-template-columns:repeat(2,1fr);}}</style>
 
-<div class="glass-card-deep p-6 rounded-xl">
-<h3>AI Plant Therapist</h3>
-<p class="text-gray-400">Plant disease detection using AI</p>
-</div>
+<!-- ───────────── PROJECTS ───────────── -->
+<section class="projects-section" id="projects" style="background:rgba(14,14,19,.4);backdrop-filter:blur(8px);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;" class="reveal">
+      <div>
+        <p class="section-tag">Selected Works</p>
+        <h2 class="section-title" style="font-size:2.2rem;margin-top:8px;">Featured <span class="gt">Engineering</span></h2>
+      </div>
+      <p style="color:rgba(172,170,177,.7);max-width:260px;text-align:right;font-size:.88rem;display:none;" id="proj-sub">AI-driven solutions & technical experiments.</p>
+    </div>
 
-<div class="glass-card-deep p-6 rounded-xl">
-<h3>Emotion AI</h3>
-<p class="text-gray-400">Emotion recognition system</p>
-</div>
+    <div class="grid-3">
+      <!-- Card 1 -->
+      <div class="proj-card reveal">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80" alt="AI Plant Therapist"/>
+          <div class="proj-tag" style="background:rgba(0,210,255,.18);border:1px solid rgba(0,210,255,.3);color:#00d2ff;">Computer Vision</div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;color:#f9f5fd;">AI Plant Therapist</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.6;flex:1;">Deep learning model for detecting plant diseases with high precision through computer vision architectures.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">TensorFlow</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Keras</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Python</span>
+          </div>
+          <a href="https://github.com/TECH-SUGATA/AI-plant-Therapist-and-Health-monitoring-System?tab=readme-ov-file" style="display:inline-flex;align-items:center;gap:6px;color:#BC13FE;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:gap .2s;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+            View Repository <span class="material-symbols-outlined" style="font-size:.9rem;">open_in_new</span>
+          </a>
+        </div>
+      </div>
 
-<div class="glass-card-deep p-6 rounded-xl">
-<h3>Smart Attendance</h3>
-<p class="text-gray-400">IoT attendance system</p>
-</div>
+      <!-- Card 2 -->
+      <div class="proj-card reveal" style="transition-delay:.1s;">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Emotionally Aware Machine"/>
+          <div class="proj-tag" style="background:rgba(172,137,255,.18);border:1px solid rgba(172,137,255,.3);color:#ac89ff;">Sentiment Analysis</div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;color:#f9f5fd;">Emotionally Aware Machine</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.6;flex:1;">Real-time facial expression and speech sentiment analysis using advanced neural architectures and NLP.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">NLP</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">OpenCV</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">PyTorch</span>
+          </div>
+          <a href="https://github.com/TECH-SUGATA/Emotional-Aware-Machine-EAM-" style="display:inline-flex;align-items:center;gap:6px;color:#ac89ff;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+            View Demo <span class="material-symbols-outlined" style="font-size:.9rem;">play_circle</span>
+          </a>
+        </div>
+      </div>
 
-</div>
+      <!-- Card 3 -->
+      <div class="proj-card reveal" style="transition-delay:.2s;">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80" alt="StudyBuddy AI"/>
+          <div class="proj-tag" style="background:rgba(255,89,227,.18);border:1px solid rgba(255,89,227,.3);color:#ff59e3;">EdTech AI</div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;color:#f9f5fd;">StudyBuddy.AI</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.6;flex:1;">Personalized AI learning assistant that optimizes study schedules based on cognitive load and performance tracking.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">React</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Flask</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">OpenAI API</span>
+          </div>
+          <a href="https://github.com/Souvagya06/studybuddy-ai" style="display:inline-flex;align-items:center;gap:6px;color:#ff59e3;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+            View Repository <span class="material-symbols-outlined" style="font-size:.9rem;">open_in_new</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="proj-card reveal" style="transition-delay:.1s;">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&q=80" alt="Crisis Connect AI"/>
+          <div class="proj-tag" style="background:rgba(172,137,255,.18);border:1px solid rgba(172,137,255,.3);color:#ac89ff;">Disaster Mgmt</div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;color:#f9f5fd;">Crisis Connect AI</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.6;flex:1;">Intelligent disaster response system using real-time data to coordinate emergency services efficiently.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Node.js</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">GCP</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">PostgreSQL</span>
+          </div>
+          <a href="https://github.com/Bikram-pal/crisis-connect-ai" style="display:inline-flex;align-items:center;gap:6px;color:#ac89ff;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+            View Repository <span class="material-symbols-outlined" style="font-size:.9rem;">open_in_new</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="proj-card reveal" style="transition-delay:.2s;">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600&q=80" alt="Smart Attendance"/>
+          <div class="proj-tag" style="background:rgba(188,19,254,.18);border:1px solid rgba(188,19,254,.3);color:#BC13FE;">IoT & Security</div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;color:#f9f5fd;">Smart Attendance</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.6;flex:1;">RFID and facial recognition integrated web platform for seamless tracking and reporting.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Python</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Flask</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Arduino</span>
+          </div>
+          <a href="https://github.com/Souvagya06/smart-rfid-attendance-system" style="display:inline-flex;align-items:center;gap:6px;color:#BC13FE;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+            View Repository <span class="material-symbols-outlined" style="font-size:.9rem;">open_in_new</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="proj-card reveal" style="transition-delay:.3s;">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&q=80" alt="MediFind AI"/>
+          <div class="proj-tag" style="background:rgba(188,19,254,.18);border:1px solid rgba(188,19,254,.3);color:#BC13FE;">Healthcare AI</div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;color:#f9f5fd;">AI Emergency Hospital Rec.</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.6;flex:1;">MediFind AI — intelligent system finding the best hospital during emergencies using ML predictions, NLP & real-time crowd data.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Python</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Node.js</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">PostgreSQL</span>
+          </div>
+          <a href="https://github.com/shounak2006/Hospital-Management-Arogya-" style="display:inline-flex;align-items:center;gap:6px;color:#BC13FE;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+            View Repository <span class="material-symbols-outlined" style="font-size:.9rem;">open_in_new</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="proj-card reveal" style="grid-column:span 1;transition-delay:.2s;">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80" alt="Portfolio"/>
+          <div class="proj-tag" style="background:rgba(188,19,254,.18);border:1px solid rgba(188,19,254,.3);color:#BC13FE;">Personal Brand</div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:12px;">
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;color:#f9f5fd;">Personal Portfolio</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.6;flex:1;">High-performance interactive developer portfolio featuring glassmorphism and real-time canvas animations.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Tailwind CSS</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">JavaScript</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,.07);border-radius:3px;font-size:.72rem;color:#f9f5fd;">Vite</span>
+          </div>
+          <a href="https://github.com/TECH-SUGATA/PORTFOLIO" style="display:inline-flex;align-items:center;gap:6px;color:#BC13FE;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+            View Repository <span class="material-symbols-outlined" style="font-size:.9rem;">open_in_new</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- CONTACT -->
-<section class="py-20 fade-up text-center">
-<h2 class="text-4xl mb-10">Contact Me</h2>
+<!-- ───────────── EXPERIENCE ───────────── -->
+<section class="exp-section" id="experience">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:48px;" class="reveal">
+      <p class="section-tag">The Professional Architecture</p>
+      <h2 class="section-title" style="font-size:2.2rem;margin-top:8px;">Work <span class="gt">Experience</span></h2>
+    </div>
 
-<div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
+    <div style="display:flex;flex-direction:column;gap:24px;">
 
-<div>
-<p>Email: sugatanayak65@gmail.com</p>
-<p>Location: Kolkata, India</p>
+      <!-- EXP 1 -->
+      <div class="exp-card reveal">
+        <div style="overflow:hidden;flex-shrink:0;">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80" alt="IEDC Full Stack Intern"/>
+        </div>
+        <div style="padding:32px;display:flex;flex-direction:column;justify-content:center;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.6);"></span>
+            <span style="font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#22c55e;">Ongoing</span>
+          </div>
+          <h4 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:#f9f5fd;">Full Stack Intern</h4>
+          <p style="font-family:'Syne',sans-serif;color:#ac89ff;font-size:.92rem;font-weight:600;">IEDC — Innovation & Entrepreneurship Development Centre</p>
+          <p style="color:rgba(172,170,177,.8);font-size:.9rem;line-height:1.7;">Designing and implementing scalable web architectures. Focusing on high-performance backend systems and interactive UI/UX components for early-stage startups.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
+            <span style="padding:4px 12px;background:rgba(188,19,254,.12);border:1px solid rgba(188,19,254,.25);border-radius:3px;font-size:.72rem;color:#BC13FE;font-family:'Syne',sans-serif;">React.js</span>
+            <span style="padding:4px 12px;background:rgba(188,19,254,.12);border:1px solid rgba(188,19,254,.25);border-radius:3px;font-size:.72rem;color:#BC13FE;font-family:'Syne',sans-serif;">Node.js</span>
+            <span style="padding:4px 12px;background:rgba(188,19,254,.12);border:1px solid rgba(188,19,254,.25);border-radius:3px;font-size:.72rem;color:#BC13FE;font-family:'Syne',sans-serif;">Full Stack</span>
+          </div>
+        </div>
+      </div>
 
-<div class="flex gap-4 justify-center mt-4">
-<a href="https://github.com/TECH-SUGATA">GitHub</a>
-<a href="https://www.linkedin.com">LinkedIn</a>
-<a href="https://instagram.com">Instagram</a>
-</div>
-</div>
+      <!-- EXP 2 -->
+      <div class="exp-card reveal" style="transition-delay:.15s;">
+        <div style="overflow:hidden;flex-shrink:0;">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&q=80" alt="AI Research Intern"/>
+        </div>
+        <div style="padding:32px;display:flex;flex-direction:column;justify-content:center;gap:10px;">
+          <div>
+            <span style="font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(172,170,177,.6);">2023 – 2024</span>
+          </div>
+          <h4 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:#f9f5fd;">AI Research Intern</h4>
+          <p style="font-family:'Syne',sans-serif;color:#ff59e3;font-size:.92rem;font-weight:600;">ICAT — International Center for Automotive Technology</p>
+          <p style="color:rgba(172,170,177,.8);font-size:.9rem;line-height:1.7;">Applied ML algorithms to automotive diagnostics and sensor data processing. Collaborated on predictive maintenance models for electric vehicle systems.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
+            <span style="padding:4px 12px;background:rgba(255,89,227,.1);border:1px solid rgba(255,89,227,.25);border-radius:3px;font-size:.72rem;color:#ff59e3;font-family:'Syne',sans-serif;">TensorFlow</span>
+            <span style="padding:4px 12px;background:rgba(255,89,227,.1);border:1px solid rgba(255,89,227,.25);border-radius:3px;font-size:.72rem;color:#ff59e3;font-family:'Syne',sans-serif;">ML</span>
+            <span style="padding:4px 12px;background:rgba(255,89,227,.1);border:1px solid rgba(255,89,227,.25);border-radius:3px;font-size:.72rem;color:#ff59e3;font-family:'Syne',sans-serif;">Automotive AI</span>
+          </div>
+        </div>
+      </div>
 
-<form class="glass-card-deep p-6 rounded-xl space-y-4">
-<input placeholder="Name" class="w-full p-3 bg-black/30 rounded"/>
-<input placeholder="Email" class="w-full p-3 bg-black/30 rounded"/>
-<textarea placeholder="Message" class="w-full p-3 bg-black/30 rounded"></textarea>
-<button class="bg-purple-600 w-full py-3 rounded glow-button">Send</button>
-</form>
+      <!-- EXP 3 -->
+      <div class="exp-card reveal" style="transition-delay:.3s;">
+        <div style="overflow:hidden;flex-shrink:0;">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=400&q=80" alt="Web Dev Intern"/>
+        </div>
+        <div style="padding:32px;display:flex;flex-direction:column;justify-content:center;gap:10px;">
+          <div>
+            <span style="font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(172,170,177,.6);">2023</span>
+          </div>
+          <h4 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:#f9f5fd;">Web Development Intern</h4>
+          <p style="font-family:'Syne',sans-serif;color:#00d2ff;font-size:.92rem;font-weight:600;">Pinnacle Labs</p>
+          <p style="color:rgba(172,170,177,.8);font-size:.9rem;line-height:1.7;">Developed responsive frontend interfaces using modern frameworks. Streamlined internal tools for project management and client reporting.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
+            <span style="padding:4px 12px;background:rgba(0,210,255,.1);border:1px solid rgba(0,210,255,.25);border-radius:3px;font-size:.72rem;color:#00d2ff;font-family:'Syne',sans-serif;">HTML/CSS</span>
+            <span style="padding:4px 12px;background:rgba(0,210,255,.1);border:1px solid rgba(0,210,255,.25);border-radius:3px;font-size:.72rem;color:#00d2ff;font-family:'Syne',sans-serif;">JavaScript</span>
+            <span style="padding:4px 12px;background:rgba(0,210,255,.1);border:1px solid rgba(0,210,255,.25);border-radius:3px;font-size:.72rem;color:#00d2ff;font-family:'Syne',sans-serif;">Responsive Design</span>
+          </div>
+        </div>
+      </div>
 
-</div>
+    </div>
+  </div>
 </section>
 
-</main>
+<!-- ───────────── CERTIFICATIONS ───────────── -->
+<section class="cert-section" id="certifications" style="background:rgba(14,14,19,.5);backdrop-filter:blur(8px);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:48px;" class="reveal">
+      <p class="section-tag">Credentials & Achievements</p>
+      <h2 class="section-title" style="font-size:2.2rem;margin-top:8px;">Verified <span class="gt">Mastery</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;" class="cert-grid">
+      <!-- Certs -->
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <h3 style="font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#BC13FE;margin-bottom:8px;">Certifications</h3>
+        <div class="cert-card reveal">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSwSfW5J9n9sq5pvsF14MOypf9SH4LVVlzF-6k1A8IlbNCjjoygA7Jmihp-rC7LD8D8fe7Jb957g0OxK4vUdX5TKNPNO9Mn9kXjZs0V1WEWDV27w96bMaF0ySWDPv6mW4ggYo1EiBeVcC4bsq3QfDGcilM7z945nwB0fiQ-Zac2UFYnKkgxVe2AxiP6L3opOKGyGm_4oUcmHdFuPsKpCVDVtVxYJJrsjLxHR89N4Z0A0oEDR69ApHI5QvFUIRJxWvRmdqSsFS6aLA" style="width:44px;height:44px;border-radius:8px;object-fit:contain;"/>
+          <div><h5 style="font-family:'Syne',sans-serif;font-weight:700;color:#f9f5fd;font-size:.95rem;">AI Specialization</h5><p style="font-size:.72rem;color:rgba(172,170,177,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;">Coursera | DeepLearning.AI</p></div>
+        </div>
+        <div class="cert-card reveal" style="transition-delay:.1s;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG94H3uX3HPk1bGi5oJjIJrF1SUk9AIpu4qE2zE6QiqtWnGd08TgZ9nJhDOSz-uR1p96AqWCG7XD7EfarSCDkN3YxwbreGJFbKEH_OBn5vKwTK_aqhjqedA0Ynr13wLR9axL4i_ejQ_aw_-MTKTTm4DCGiidvsmAJUbNGrm7NSck05oKDMULvLxyqwPvurF613cr0YQUb658LB3VwUrYkWFnjuSi4C_ZXZwUxPvNVDAB57lVUxOUKb-Ds3D-2yvNYiPYGUDZ5p7JY" style="width:44px;height:44px;border-radius:8px;object-fit:contain;"/>
+          <div><h5 style="font-family:'Syne',sans-serif;font-weight:700;color:#f9f5fd;font-size:.95rem;">Cloud Architecting</h5><p style="font-size:.72rem;color:rgba(172,170,177,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;">AWS Certification</p></div>
+        </div>
+        <div class="cert-card reveal" style="transition-delay:.2s;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1PrzpCRSwDe4UkSfnyzJRoEJ5-EYe7pYko_ZuQ6I9nKjbPg047tQ-g6P_dNTc7xBEZCbkPwIcUfD9tJe3aYLNsJizb4EyY5NbwekjKQzxX6qntuIe2MmrbqWRSGQP0dErCK9crll6GpMVhq08226yrBOdH6E4QXgtRp6oT3OM-tN11xsiDoUokS7nJKs4FoVJiZ6Ui0bPGcxb15stdn5Yf0S0aiA2kcDAfS0qiDD5ilx6nlLySpLloyU1nnVdSjfVuQbZMmVVjpk" style="width:44px;height:44px;border-radius:8px;object-fit:contain;"/>
+          <div><h5 style="font-family:'Syne',sans-serif;font-weight:700;color:#f9f5fd;font-size:.95rem;">AI Specialization — IBM</h5><p style="font-size:.72rem;color:rgba(172,170,177,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;">IBM SkillBuild</p></div>
+        </div>
+        <div class="cert-card reveal" style="transition-delay:.3s;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG94H3uX3HPk1bGi5oJjIJrF1SUk9AIpu4qE2zE6QiqtWnGd08TgZ9nJhDOSz-uR1p96AqWCG7XD7EfarSCDkN3YxwbreGJFbKEH_OBn5vKwTK_aqhjqedA0Ynr13wLR9axL4i_ejQ_aw_-MTKTTm4DCGiidvsmAJUbNGrm7NSck05oKDMULvLxyqwPvurF613cr0YQUb658LB3VwUrYkWFnjuSi4C_ZXZwUxPvNVDAB57lVUxOUKb-Ds3D-2yvNYiPYGUDZ5p7JY" style="width:44px;height:44px;border-radius:8px;object-fit:contain;"/>
+          <div><h5 style="font-family:'Syne',sans-serif;font-weight:700;color:#f9f5fd;font-size:.95rem;">Image Processing</h5><p style="font-size:.72rem;color:rgba(172,170,177,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;">MATLAB Workshop</p></div>
+        </div>
+      </div>
+      <!-- Hackathons -->
+      <div>
+        <h3 style="font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#ac89ff;margin-bottom:22px;">Competitive Edge</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="hack-card reveal"><h5 style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:#ac89ff;">SIH</h5><p style="font-size:.78rem;color:rgba(172,170,177,.7);margin-top:6px;">Smart India Hackathon Participant</p></div>
+          <div class="hack-card reveal" style="transition-delay:.1s;"><h5 style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:#ac89ff;">UNSTOP</h5><p style="font-size:.78rem;color:rgba(172,170,177,.7);margin-top:6px;">Unstop Hackathon Participant</p></div>
+          <div class="hack-card reveal" style="transition-delay:.2s;border-color:rgba(188,19,254,.3);"><h5 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#BC13FE;">IIT Guwahati</h5><p style="font-size:.78rem;color:rgba(172,170,177,.7);margin-top:6px;">En-coder 2026 Winner 🏆</p></div>
+          <div class="hack-card reveal" style="transition-delay:.3s;"><h5 style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#f9f5fd;">LeetCode</h5><p style="font-size:.78rem;color:rgba(172,170,177,.7);margin-top:6px;">100+ Problems Solved</p></div>
+          <div class="hack-card reveal" style="grid-column:span 2;transition-delay:.4s;"><h5 style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#f9f5fd;">GeeksForGeeks</h5><p style="font-size:.78rem;color:rgba(172,170,177,.7);margin-top:6px;">Top 5% Ranking</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}@media(max-width:768px){.cert-grid{grid-template-columns:1fr;}}</style>
 
-<!-- JS -->
+<!-- ───────────── BLOG ───────────── -->
+<section class="blog-section" id="blog">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="margin-bottom:48px;" class="reveal">
+      <p class="section-tag" style="text-align:center;">Intellectual Stream</p>
+      <h2 class="section-title" style="font-size:2.2rem;margin-top:8px;text-align:center;">Latest <span class="gt">Insights</span></h2>
+    </div>
+    <div class="grid-3">
+      <!-- Blog 1 -->
+      <div class="blog-card reveal">
+        <div class="blog-img">
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80" alt="Generative AI"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,8,.85),transparent);"></div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:10px;">
+          <p style="font-family:'Syne',sans-serif;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:#BC13FE;">Machine Learning</p>
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#f9f5fd;line-height:1.35;">The Future of Generative AI Mastermind</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.65;flex:1;">Exploring how transformer architectures are reshaping the boundaries of human creativity and automated content generation.</p>
+          <a href="#" style="display:inline-flex;align-items:center;gap:6px;color:#f9f5fd;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#BC13FE'" onmouseout="this.style.color='#f9f5fd'">
+            Read More <span class="material-symbols-outlined" style="font-size:.9rem;">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+      <!-- Blog 2 -->
+      <div class="blog-card reveal" style="transition-delay:.15s;">
+        <div class="blog-img">
+          <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&q=80" alt="Full Stack"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,8,.85),transparent);"></div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:10px;">
+          <p style="font-family:'Syne',sans-serif;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:#ac89ff;">Full Stack Development</p>
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#f9f5fd;line-height:1.35;">Mastering Full-Stack with Python</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.65;flex:1;">Why the combination of Python, React, and FastAPI is becoming the gold standard for high-performance AI-driven applications.</p>
+          <a href="#" style="display:inline-flex;align-items:center;gap:6px;color:#f9f5fd;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#ac89ff'" onmouseout="this.style.color='#f9f5fd'">
+            Read More <span class="material-symbols-outlined" style="font-size:.9rem;">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+      <!-- Blog 3 -->
+      <div class="blog-card reveal" style="transition-delay:.3s;">
+        <div class="blog-img">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80" alt="Hackathon"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,8,.85),transparent);"></div>
+        </div>
+        <div style="padding:24px;flex:1;display:flex;flex-direction:column;gap:10px;">
+          <p style="font-family:'Syne',sans-serif;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:#ff59e3;">Experience</p>
+          <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#f9f5fd;line-height:1.35;">My Journey at SIH 2024</h4>
+          <p style="color:rgba(172,170,177,.8);font-size:.88rem;line-height:1.65;flex:1;">A deep dive into the 36-hour coding marathon where we built a real-time solution for Smart India's biggest challenges.</p>
+          <a href="#" style="display:inline-flex;align-items:center;gap:6px;color:#f9f5fd;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#ff59e3'" onmouseout="this.style.color='#f9f5fd'">
+            Read More <span class="material-symbols-outlined" style="font-size:.9rem;">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── CONTACT ───────────── -->
+<section class="contact-section" id="contact" style="background:rgba(14,14,19,.5);backdrop-filter:blur(8px);">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:56px;" class="reveal">
+      <p class="section-tag">Connect</p>
+      <h2 class="section-title" style="font-size:2.6rem;margin-top:10px;">Let's build something<br/><span class="gt">amazing together.</span></h2>
+    </div>
+
+    <!-- Contact Methods Grid (page 2 style with logos) -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:56px;" class="contact-methods-grid reveal">
+
+      <a href="mailto:sugatanayak65@gmail.com" class="contact-method-card" style="--hover-color:rgba(234,67,53,.5);--hover-glow:rgba(234,67,53,.15);">
+        <div class="contact-method-icon" style="background:rgba(234,67,53,.12);">
+          <img src="https://img.icons8.com/color/96/gmail-new.png" style="width:38px;height:38px;"/>
+        </div>
+        <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:#f9f5fd;">Email</p>
+        <p style="font-size:.72rem;color:rgba(172,170,177,.6);">sugatanayak65@gmail.com</p>
+      </a>
+
+      <a href="https://wa.me/919883131330" target="_blank" class="contact-method-card" style="--hover-color:rgba(37,211,102,.5);--hover-glow:rgba(37,211,102,.15);">
+        <div class="contact-method-icon" style="background:rgba(37,211,102,.12);">
+          <img src="https://img.icons8.com/color/96/whatsapp--v1.png" style="width:38px;height:38px;"/>
+        </div>
+        <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:#f9f5fd;">WhatsApp</p>
+        <p style="font-size:.72rem;color:rgba(172,170,177,.6);">+91-9883131330</p>
+      </a>
+
+      <a href="https://www.linkedin.com/in/sugata-nayak-343099322" target="_blank" class="contact-method-card" style="--hover-color:rgba(10,102,194,.5);--hover-glow:rgba(10,102,194,.15);">
+        <div class="contact-method-icon" style="background:rgba(10,102,194,.12);">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" style="width:38px;height:38px;border-radius:6px;"/>
+        </div>
+        <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:#f9f5fd;">LinkedIn</p>
+        <p style="font-size:.72rem;color:rgba(172,170,177,.6);">sugata-nayak</p>
+      </a>
+
+      <a href="https://github.com/TECH-SUGATA" target="_blank" class="contact-method-card" style="--hover-color:rgba(255,255,255,.3);--hover-glow:rgba(255,255,255,.08);">
+        <div class="contact-method-icon" style="background:rgba(255,255,255,.08);">
+          <img src="https://img.icons8.com/ios11/512/FFFFFF/github.png" style="width:38px;height:38px;opacity:.85;"/>
+        </div>
+        <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:#f9f5fd;">GitHub</p>
+        <p style="font-size:.72rem;color:rgba(172,170,177,.6);">TECH-SUGATA</p>
+      </a>
+
+      <a href="https://www.instagram.com/nayak_sugata" target="_blank" class="contact-method-card" style="--hover-color:rgba(228,64,95,.5);--hover-glow:rgba(228,64,95,.15);">
+        <div class="contact-method-icon" style="background:rgba(228,64,95,.1);">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="width:38px;height:38px;"/>
+        </div>
+        <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:#f9f5fd;">Instagram</p>
+        <p style="font-size:.72rem;color:rgba(172,170,177,.6);">@nayak_sugata</p>
+      </a>
+    </div>
+
+    <!-- Info + Form -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;" class="contact-inner-grid reveal">
+      <!-- Left info -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <a href="mailto:sugatanayak65@gmail.com" class="contact-info-item">
+          <div class="contact-icon" style="background:rgba(234,67,53,.12);">
+            <img src="https://img.icons8.com/color/48/gmail-new.png" style="width:26px;height:26px;"/>
+          </div>
+          <div>
+            <p style="font-size:.72rem;color:rgba(172,170,177,.6);font-family:'Syne',sans-serif;letter-spacing:.08em;text-transform:uppercase;">Email</p>
+            <p style="color:#f9f5fd;font-weight:600;">sugatanayak65@gmail.com</p>
+          </div>
+        </a>
+        <a href="tel:+919883131330" class="contact-info-item">
+          <div class="contact-icon" style="background:rgba(172,137,255,.12);">
+            <span style="font-size:1.4rem;">📞</span>
+          </div>
+          <div>
+            <p style="font-size:.72rem;color:rgba(172,170,177,.6);font-family:'Syne',sans-serif;letter-spacing:.08em;text-transform:uppercase;">Phone</p>
+            <p style="color:#f9f5fd;font-weight:600;">+91-9883131330</p>
+          </div>
+        </a>
+        <a href="https://wa.me/919883131330" target="_blank" class="contact-info-item">
+          <div class="contact-icon" style="background:rgba(37,211,102,.12);">
+            <img src="https://img.icons8.com/color/48/whatsapp--v1.png" style="width:26px;height:26px;"/>
+          </div>
+          <div>
+            <p style="font-size:.72rem;color:rgba(172,170,177,.6);font-family:'Syne',sans-serif;letter-spacing:.08em;text-transform:uppercase;">WhatsApp</p>
+            <p style="color:#f9f5fd;font-weight:600;">Chat on WhatsApp</p>
+          </div>
+        </a>
+        <div class="contact-info-item" style="cursor:default;">
+          <div class="contact-icon" style="background:rgba(255,89,227,.12);">
+            <span style="font-size:1.4rem;">📍</span>
+          </div>
+          <div>
+            <p style="font-size:.72rem;color:rgba(172,170,177,.6);font-family:'Syne',sans-serif;letter-spacing:.08em;text-transform:uppercase;">Location</p>
+            <p style="color:#f9f5fd;font-weight:600;">Kolkata, India</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right form -->
+      <div class="contact-form">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label class="form-label">Name</label>
+            <input class="form-input" type="text" placeholder="John Doe"/>
+          </div>
+          <div>
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" placeholder="john@example.com"/>
+          </div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" rows="5" placeholder="Your vision..." style="resize:vertical;"></textarea>
+        </div>
+        <button onclick="handleFormSubmit(event)" style="width:100%;padding:16px;background:#BC13FE;color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:6px;cursor:pointer;box-shadow:0 0 24px rgba(188,19,254,.4);transition:all .25s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 0 36px rgba(188,19,254,.6)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 0 24px rgba(188,19,254,.4)'">
+          Send Message ✉️
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<style>.contact-methods-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}@media(max-width:900px){.contact-methods-grid{grid-template-columns:repeat(3,1fr);}}@media(max-width:560px){.contact-methods-grid{grid-template-columns:repeat(2,1fr);}} .contact-inner-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}@media(max-width:768px){.contact-inner-grid{grid-template-columns:1fr;}}</style>
+
+<!-- ───────────── FOOTER ───────────── -->
+<footer>
+  <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#BC13FE;">Sugata Nayak</div>
+    <p style="color:rgba(107,107,117,.9);font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;">© 2024 Sugata Nayak. Built with Atmospheric Precision.</p>
+    <div style="display:flex;gap:24px;">
+      <a href="https://github.com/TECH-SUGATA" style="color:rgba(107,107,117,.9);font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#BC13FE'" onmouseout="this.style.color='rgba(107,107,117,.9)'">GitHub</a>
+      <a href="https://www.linkedin.com/in/sugata-nayak-343099322" style="color:rgba(107,107,117,.9);font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#BC13FE'" onmouseout="this.style.color='rgba(107,107,117,.9)'">LinkedIn</a>
+      <a href="mailto:sugatanayak65@gmail.com" style="color:rgba(107,107,117,.9);font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#BC13FE'" onmouseout="this.style.color='rgba(107,107,117,.9)'">Email</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ───────────── WHATSAPP FAB ───────────── -->
+<a href="https://wa.me/919883131330" target="_blank" class="wa-fab" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
 <script>
-// Mouse glow
-document.addEventListener("mousemove",e=>{
-let g=document.getElementById("mouse-glow");
-g.style.left=e.clientX+"px";
-g.style.top=e.clientY+"px";
+// ── Cursor glow ──
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
 });
 
-// Fade animation
-const obs=new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting)e.target.classList.add("active");
+// ── Scroll reveal ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal,.reveal-left').forEach(el => observer.observe(el));
+
+// ── Form submit ──
+function handleFormSubmit(e) {
+  const btn = e.target;
+  btn.textContent = '✅ Message Sent!';
+  btn.style.background = 'rgba(34,197,94,.8)';
+  setTimeout(() => {
+    btn.textContent = 'Send Message ✉️';
+    btn.style.background = '#BC13FE';
+  }, 3000);
+}
+
+// ── Stagger reveal delays ──
+document.querySelectorAll('.grid-3 .proj-card, .grid-3 .blog-card').forEach((el,i) => {
+  el.style.transitionDelay = (i * 0.1) + 's';
 });
-});
-document.querySelectorAll(".fade-up").forEach(el=>obs.observe(el));
+
+// ── Show proj subtitle on large screens ──
+if (window.innerWidth > 768) {
+  document.getElementById('proj-sub').style.display = 'block';
+}
 </script>
-
 </body>
 </html>
