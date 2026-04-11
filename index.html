@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
@@ -43,6 +44,20 @@ tailwind.config = {
     --secondary:#ac89ff;
     --tertiary:#ff59e3;
     --cyan:#00d2ff;
+  }
+
+  /* ─── MOBILE HERO FIXES ─── */
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:36px;padding-top:20px;}
+    .hero-section{padding:88px 18px 48px;}
+    .hero-img-inner{max-width:320px;}
+    .focus-badge{left:0;bottom:12px;}
+  }
+  @media(max-width:480px){
+    .hero-section{padding:80px 14px 40px;}
+    .avail-badge{font-size:.62rem;}
+    .slide-container{height:36px;}
+    .slide-container p{font-size:1.2rem !important;}
   }
   html{scroll-behavior:smooth;}
   body{
@@ -127,16 +142,24 @@ tailwind.config = {
     max-width:1280px;margin:0 auto;padding:0 24px;height:100%;
   }
   .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#BC13FE;letter-spacing:-.02em;}
-  .nav-links{display:flex;gap:32px;}
-  .nav-links a{font-family:'Syne',sans-serif;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:color .25s;}
+  .nav-links{display:flex;gap:28px;}
+  .nav-links a{font-family:'Syne',sans-serif;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:color .25s;}
   .nav-links a:hover{color:#BC13FE;}
   .btn-resume{
-    padding:8px 22px;background:#BC13FE;color:#fff;font-family:'Syne',sans-serif;
-    font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
-    border-radius:3px;transition:all .25s;
+    padding:8px 18px;background:#BC13FE;color:#fff;font-family:'Syne',sans-serif;
+    font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+    border-radius:3px;transition:all .25s;white-space:nowrap;
     box-shadow:0 0 18px rgba(188,19,254,.35);
   }
   .btn-resume:hover{transform:scale(1.06);box-shadow:0 0 28px rgba(188,19,254,.55);}
+  .ham-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
+  .ham-btn span{display:block;width:24px;height:2px;background:#f9f5fd;border-radius:2px;transition:all .3s;}
+  @media(max-width:900px){
+    .nav-links{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(5,5,8,.97);backdrop-filter:blur(20px);flex-direction:column;gap:0;border-bottom:1px solid rgba(188,19,254,.15);z-index:999;}
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.05);font-size:.9rem;}
+    .ham-btn{display:flex;}
+  }
 
   /* ─── SECTION BASE ─── */
   section{position:relative;z-index:1;scroll-margin-top:72px;}
@@ -144,17 +167,20 @@ tailwind.config = {
   /* ─── HERO ─── */
   .hero-section{min-height:100vh;display:flex;align-items:center;padding:96px 24px 48px;}
   .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1280px;margin:0 auto;width:100%;}
-  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;} .nav-links{display:none;}}
-  .slide-container{height:44px;overflow:hidden;}
-  .slide-container p{margin:0;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;animation:slideText 8s cubic-bezier(.85,0,.15,1) infinite;}
-  .slide-container p:nth-child(2){animation-delay:2s;}
-  .slide-container p:nth-child(3){animation-delay:4s;}
-  .slide-container p:nth-child(4){animation-delay:6s;}
-  @keyframes slideText{
-    0%,20%{transform:translateY(0);opacity:1;}
-    25%,95%{transform:translateY(-100%);opacity:0;}
-    100%{transform:translateY(-300%);opacity:0;}
+
+  /* ─── TICKER (JS-driven) ─── */
+  .ticker-wrap{height:52px;overflow:hidden;position:relative;margin:4px 0;}
+  .ticker-item{
+    position:absolute;top:0;left:0;width:100%;
+    font-family:'Syne',sans-serif;font-weight:800;
+    font-size:clamp(1.3rem,3.5vw,1.9rem);
+    line-height:52px;white-space:nowrap;
+    opacity:0;transform:translateY(24px);
+    transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);
+    pointer-events:none;user-select:none;
   }
+  .ticker-item.active{opacity:1;transform:translateY(0);}
+  .ticker-item.exit{opacity:0;transform:translateY(-24px);}
 
   /* ─── AVAILABILITY BADGE ─── */
   .avail-badge{
@@ -410,7 +436,12 @@ tailwind.config = {
       <a href="#blog">Blog</a>
       <a href="#contact">Contact</a>
     </div>
-    <a class="btn-resume" href="https://i.ibb.co/5gKrdd9X/Sugata-Nayak-12024002035227-Resume.png" target="_blank">Resume</a>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a class="btn-resume" href="https://i.ibb.co/5gKrdd9X/Sugata-Nayak-12024002035227-Resume.png" target="_blank">Resume</a>
+      <button class="ham-btn" id="hamBtn" onclick="toggleNav()" aria-label="Menu">
+        <span id="h1"></span><span id="h2"></span><span id="h3"></span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -424,15 +455,22 @@ tailwind.config = {
         <span style="font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(172,170,177,.9);">Available for Opportunities</span>
       </div>
 
-      <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.1;" class="reveal">
-        Hi, I'm <span class="gt">Sugata Nayak</span>
+      <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.9rem,7vw,4.2rem);line-height:1.15;word-break:break-word;" class="reveal">
+        Hi, I'm <br class="name-break"/><span class="gt" style="display:inline-block;white-space:nowrap;">Sugata Nayak</span>
       </h1>
+      <style>
+        @media(min-width:480px){.name-break{display:none;}}
+        @media(max-width:479px){
+          .name-break{display:block;}
+          .hero-section{padding-left:16px;padding-right:16px;}
+        }
+      </style>
 
-      <div class="slide-container reveal">
-        <p style="color:#f9f5fd;">Full Stack Developer</p>
-        <p style="color:#ac89ff;">AI & ML Enthusiast</p>
-        <p style="color:#ff59e3;">Python Programmer</p>
-        <p style="color:#00d2ff;">DSA Learner</p>
+      <div class="ticker-wrap reveal" id="ticker">
+        <div class="ticker-item" data-color="#f9f5fd">Full Stack Developer</div>
+        <div class="ticker-item" data-color="#ac89ff">AI &amp; ML Enthusiast</div>
+        <div class="ticker-item" data-color="#ff59e3">Python Programmer</div>
+        <div class="ticker-item" data-color="#00d2ff">DSA Learner</div>
       </div>
 
       <p style="color:rgba(172,170,177,.85);font-size:1.05rem;line-height:1.75;max-width:480px;" class="reveal">
@@ -905,12 +943,12 @@ tailwind.config = {
     <!-- Contact Methods Grid (page 2 style with logos) -->
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:56px;" class="contact-methods-grid reveal">
 
-      <a href="mailto:sugatanayak65@gmail.com" class="contact-method-card" style="--hover-color:rgba(234,67,53,.5);--hover-glow:rgba(234,67,53,.15);">
+      <a href="/cdn-cgi/l/email-protection#a9dadccec8ddc8c7c8d0c8c29f9ce9cec4c8c0c587cac6c4" class="contact-method-card" style="--hover-color:rgba(234,67,53,.5);--hover-glow:rgba(234,67,53,.15);">
         <div class="contact-method-icon" style="background:rgba(234,67,53,.12);">
           <img src="https://img.icons8.com/color/96/gmail-new.png" style="width:38px;height:38px;"/>
         </div>
         <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:#f9f5fd;">Email</p>
-        <p style="font-size:.72rem;color:rgba(172,170,177,.6);">sugatanayak65@gmail.com</p>
+        <p style="font-size:.72rem;color:rgba(172,170,177,.6);"><span class="__cf_email__" data-cfemail="3645435157425758574f575d000376515b575f5a1855595b">[email&#160;protected]</span></p>
       </a>
 
       <a href="https://wa.me/919883131330" target="_blank" class="contact-method-card" style="--hover-color:rgba(37,211,102,.5);--hover-glow:rgba(37,211,102,.15);">
@@ -950,13 +988,13 @@ tailwind.config = {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;" class="contact-inner-grid reveal">
       <!-- Left info -->
       <div style="display:flex;flex-direction:column;gap:16px;">
-        <a href="mailto:sugatanayak65@gmail.com" class="contact-info-item">
+        <a href="/cdn-cgi/l/email-protection#146761737560757a756d757f2221547379757d783a777b79" class="contact-info-item">
           <div class="contact-icon" style="background:rgba(234,67,53,.12);">
             <img src="https://img.icons8.com/color/48/gmail-new.png" style="width:26px;height:26px;"/>
           </div>
           <div>
             <p style="font-size:.72rem;color:rgba(172,170,177,.6);font-family:'Syne',sans-serif;letter-spacing:.08em;text-transform:uppercase;">Email</p>
-            <p style="color:#f9f5fd;font-weight:600;">sugatanayak65@gmail.com</p>
+            <p style="color:#f9f5fd;font-weight:600;"><span class="__cf_email__" data-cfemail="205355474154414e4159414b161560474d41494c0e434f4d">[email&#160;protected]</span></p>
           </div>
         </a>
         <a href="tel:+919883131330" class="contact-info-item">
@@ -1021,7 +1059,7 @@ tailwind.config = {
     <div style="display:flex;gap:24px;">
       <a href="https://github.com/TECH-SUGATA" style="color:rgba(107,107,117,.9);font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#BC13FE'" onmouseout="this.style.color='rgba(107,107,117,.9)'">GitHub</a>
       <a href="https://www.linkedin.com/in/sugata-nayak-343099322" style="color:rgba(107,107,117,.9);font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#BC13FE'" onmouseout="this.style.color='rgba(107,107,117,.9)'">LinkedIn</a>
-      <a href="mailto:sugatanayak65@gmail.com" style="color:rgba(107,107,117,.9);font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#BC13FE'" onmouseout="this.style.color='rgba(107,107,117,.9)'">Email</a>
+      <a href="/cdn-cgi/l/email-protection#a5d6d0c2c4d1c4cbc4dcc4ce9390e5c2c8c4ccc98bc6cac8" style="color:rgba(107,107,117,.9);font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .25s;" onmouseover="this.style.color='#BC13FE'" onmouseout="this.style.color='rgba(107,107,117,.9)'">Email</a>
     </div>
   </div>
 </footer>
@@ -1033,24 +1071,72 @@ tailwind.config = {
   </svg>
 </a>
 
-<script>
-// ── Cursor glow ──
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── Cursor glow (desktop only) ──
 const glow = document.getElementById('cursorGlow');
-document.addEventListener('mousemove', e => {
-  glow.style.left = e.clientX + 'px';
-  glow.style.top = e.clientY + 'px';
-});
+if(window.matchMedia('(hover:hover)').matches){
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+} else { glow.style.display='none'; }
+
+// ── Ticker animation ──
+(function(){
+  const items = document.querySelectorAll('#ticker .ticker-item');
+  if(!items.length) return;
+  const colors = ['#f9f5fd','#ac89ff','#ff59e3','#00d2ff'];
+  let cur = 0;
+
+  // Set initial colors from data-color
+  items.forEach((item,i) => {
+    item.style.color = colors[i] || '#f9f5fd';
+  });
+
+  // Activate first
+  items[0].classList.add('active');
+
+  setInterval(() => {
+    const prev = cur;
+    cur = (cur + 1) % items.length;
+
+    // Exit previous
+    items[prev].classList.remove('active');
+    items[prev].classList.add('exit');
+
+    // Small delay so exit animates out before new one enters
+    setTimeout(() => {
+      items[prev].classList.remove('exit');
+      items[cur].classList.add('active');
+    }, 80);
+
+  }, 2800);
+})();
 
 // ── Scroll reveal ──
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-    }
+    if (e.isIntersecting) e.target.classList.add('visible');
   });
-}, { threshold: 0.1 });
-
+}, { threshold: 0.08 });
 document.querySelectorAll('.reveal,.reveal-left').forEach(el => observer.observe(el));
+
+// ── Ham nav toggle ──
+function toggleNav(){
+  const nl = document.querySelector('.nav-links');
+  const open = nl.classList.toggle('open');
+  const btn = document.getElementById('hamBtn');
+  btn.querySelector('span:nth-child(1)').style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
+  btn.querySelector('span:nth-child(2)').style.opacity  = open ? '0' : '1';
+  btn.querySelector('span:nth-child(3)').style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
+}
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+  document.querySelector('.nav-links').classList.remove('open');
+  ['span:nth-child(1)','span:nth-child(2)','span:nth-child(3)'].forEach((s,i) => {
+    const el = document.querySelector('#hamBtn ' + s);
+    if(el){ el.style.transform=''; el.style.opacity='1'; }
+  });
+}));
 
 // ── Form submit ──
 function handleFormSubmit(e) {
@@ -1063,15 +1149,12 @@ function handleFormSubmit(e) {
   }, 3000);
 }
 
-// ── Stagger reveal delays ──
-document.querySelectorAll('.grid-3 .proj-card, .grid-3 .blog-card').forEach((el,i) => {
-  el.style.transitionDelay = (i * 0.1) + 's';
-});
-
 // ── Show proj subtitle on large screens ──
 if (window.innerWidth > 768) {
-  document.getElementById('proj-sub').style.display = 'block';
+  const sub = document.getElementById('proj-sub');
+  if(sub) sub.style.display = 'block';
 }
+
 </script>
 </body>
 </html>
